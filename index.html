@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomix Lab - Web3 Tokenomix Redefined</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui"></script>
+  <style>
+    body[data-theme='dark'] {
+      background-color: #111827;
+      color: #ffffff;
+    }
+    body[data-theme='light'] {
+      background-color: #ffffff;
+      color: #111827;
+    }
+
+   .glass-effect {
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #chart-container {
+      border: 2px solid #4B5563;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+   .placeholder-text {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+   .transition {
+      transition: all 0.3s ease;
+    }
+
+   .page-transition {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body class="page-transition dark"> 
+    <header class="p-5 flex justify-between items-center fixed top-0 left-0 right-0 glass-effect z-10">
+    <h1 class="text-4xl font-bold transition">Nomix</h1>
+    <img id="logo" class="h-10 w-auto mr-auto transition" src="logo-light.png" alt="Nomix Logo">
+    <nav class="flex space-x-4">
+      <a href="index.html" class="text-lg hover:underline transition">Home</a>
+      <a href="whitepaper.html" class="text-lg hover:underline transition">Whitepaper</a>
+      <a href="roadmap.html" class="text-lg hover:underline transition">Roadmap</a>
+      <a href="staking.html" class="text-lg hover:underline transition">Staking</a>
+      <button id="toggle-theme" class="ml-4 text-lg bg-gray-200 dark:bg-black p-2 rounded transition">Toggle Theme</button>
+    </nav>
+  </header>
+
+  <main class="p-5 mt-20">
+    <section class="text-center mb-10">
+      <h2 class="text-3xl font-bold mb-3">Token Stats</h2>
+      <p class="text-xl" id="token-stats">Market Cap: $0 | Price: $0</p>
+    </section>
+
+    <section class="text-center mb-10">
+      <h2 class="text-3xl font-bold mb-3">Live Chart</h2>
+      <div id="chart-container" class="p-2 mx-auto" style="width: 100%; max-width: 820px; margin: 0 auto;">
+        <div id="chart" class="bg-gray-50 dark:bg-gray-900" style="height: 500px; width: 100%;"></div>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="text-lg">
+        <!-- Placeholder text for scrolling -->
+        <p class="placeholder-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <p class="placeholder-text">Copy this block as needed to create scrolling content.</p>
+        <!-- Repeat placeholder text for testing -->
+        <p class="placeholder-text">Lorem ipsum...</p>
+        <p class="placeholder-text">Lorem ipsum...</p>
+        <p class="placeholder-text">Lorem ipsum...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="p-5 text-center border-t">
+    <p>&copy; 2025 Nomix Lab. All rights reserved.</p>
+  </footer>
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    // Theme switching
+    const themeToggle = document.getElementById('toggle-theme');
+    const setTheme = (theme) => {
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme || (new Date().getHours() >= 6 && new Date().getHours() < 18? 'light' : 'dark'));
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      setTheme(currentTheme === 'dark'? 'light' : 'dark');
+    });
+
+    // TradingView Chart
+    new TradingView.widget({
+      container_id: 'chart',
+      symbol: 'SOLUSD',
+      interval: 'D',
+      theme: document.body.getAttribute('data-theme') === 'dark'? 'dark' : 'light',
+      style: '1',
+      locale: 'en',
+      toolbar_bg: document.body.getAttribute('data-theme') === 'dark'? '#111827' : '#ffffff',
+      enable_publishing: false,
+      hide_side_toolbar: false,
+      allow_symbol_change: true,
+      save_image: false
+    });
+
+    // Placeholder for token stats update
+    const updateTokenStats = () => {
+      // Fetch token stats here (mock data for now)
+      const marketCap = 1000000; // Example value
+      const price = 0.01; // Example value
+      document.getElementById('token-stats').innerText = `Market Cap: $${marketCap.toLocaleString()} | Price: $${price}`;
+    };
+
+    updateTokenStats();
+  </script>
+</body>
+</html>

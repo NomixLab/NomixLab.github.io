@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staking - Nomix Lab</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body[data-theme='dark'] {
+      background-color: #111827;
+      color: #ffffff;
+    }
+    body[data-theme='light'] {
+      background-color: #ffffff;
+      color: #111827;
+    }
+
+   .glass-effect {
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #chart-container {
+      border: 2px solid #4B5563;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+   .placeholder-text {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+   .transition {
+      transition: all 0.3s ease;
+    }
+
+   .page-transition {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      line-height: 50px;
+    }
+  </style>
+
+</head>
+<body>
+    <header class="p-5 flex justify-between items-center fixed top-0 left-0 right-0 glass-effect z-10">
+    <h1 class="text-4xl font-bold transition">Nomix</h1>
+    <img id="logo" class="h-10 w-auto mr-auto transition" src="logo-light.png" alt="Nomix Logo">
+    <nav class="flex space-x-4">
+      <a href="index.html" class="text-lg hover:underline transition">Home</a>
+      <a href="whitepaper.html" class="text-lg hover:underline transition">Whitepaper</a>
+      <a href="roadmap.html" class="text-lg hover:underline transition">Roadmap</a>
+      <a href="staking.html" class="text-lg hover:underline transition">Staking</a>
+      <button id="toggle-theme" class="ml-4 text-lg bg-gray-200 dark:bg-black p-2 rounded transition">Toggle Theme</button>
+    </nav>
+  </header>
+
+
+  <main class="p-5 mt-20">
+    <section class="text-center mb-10">
+      <h2 class="text-3xl font-bold mb-3">Staking Page</h2>
+      <p class="text-lg">Here, you can stake your tokens and earn rewards.</p>
+    </section>
+  </main>
+
+  <footer class="p-5 text-center border-t">
+    <p>&copy; 2025 Nomix Lab. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('toggle-theme');
+    const setTheme = (theme) => {
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
